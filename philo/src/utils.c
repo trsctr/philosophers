@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trsctr <trsctr@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 14:05:54 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/17 16:07:13 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:22:06 by trsctr           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ int	philo_atoi(const char *str)
 	int		i;
 	long	res;
 	long	dig;
-	long	sign;
 
 	res = 0;
 	i = 0;
-	sign = 1;
 	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 		i++;
 	if (str[i] == '-' || str[i] == '+')

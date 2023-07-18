@@ -1,36 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: trsctr <trsctr@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/05 14:15:35 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/18 12:23:46 by trsctr           ###   ########.fr       */
+/*   Created: 2023/07/18 12:25:02 by trsctr            #+#    #+#             */
+/*   Updated: 2023/07/18 12:30:40 by trsctr           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	main(int argc, char **argv)
+void bad_arguments(void)
 {
-	t_settings	*settings;
-
-	if (argc < 5 || argc > 6)
-	{
-		bad_arguments();
-		return (0);
-	}
-	settings = init_settings();
-	if (!settings)
-	{
-		printf("fail\n");
-		return (0);
-	}
-	if (save_settings(settings, argc, argv) < 0)
-	{
-		free(settings);
-		printf("fail\n");
-		return (0);
-	}
+    printf("Invalid amount of arguments!\n");
+    printf("Example: ./philo number_of_philosophers time_to_die_in_ms ");
+    printf("time_to_eat_in_ms time_to_sleep_in_ms ");
+    printf("[optional: how_many_times_each_philosopher_must_eat]\n");
 }

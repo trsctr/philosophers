@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+         #
+#    By: trsctr <trsctr@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 16:51:49 by oandelin          #+#    #+#              #
-#    Updated: 2023/07/17 16:03:03 by oandelin         ###   ########.fr        #
+#    Updated: 2023/07/18 12:28:25 by trsctr           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC			= 	cc
 CFLAGS		= 	-Wall -Werror -Wextra
 DBFLAGS		=	-g -fsanitize=thread
 SRCDIR		=	src/
-SRCFILES	= 	philo.c utils.c output.c
+SRCFILES	= 	philo.c utils.c error.c actions.c
 OBJ_DIR		= 	obj/
 OBJFILES	= 	$(SRCFILES:.c=.o)
 INC_DIR		=	include

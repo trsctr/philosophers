@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: trsctr <trsctr@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 14:16:19 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/17 16:13:40 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:29:39 by trsctr           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	philo_has_fork(int timestamp, int philo_id);
 void	philo_is_eating(int timestamp, int philo_id);
 void	philo_is_sleeping(int timestamp, int philo_id);
 void	philo_died(int timestamp, int philo_id);
-
+void	bad_arguments(void);
 
 // UTILS
 
