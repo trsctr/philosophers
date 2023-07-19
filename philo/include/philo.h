@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trsctr <trsctr@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 14:16:19 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/18 12:29:39 by trsctr           ###   ########.fr       */
+/*   Updated: 2023/07/19 16:22:06 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,19 @@ typedef struct s_settings{
 	int	max_meals;
 }	t_settings;
 
+
+typedef struct s_philosopher{
+	int				id;
+	int				state;
+	int				meals_eaten;
+	pthread_t		tid;
+	pthread_mutex_t	mutex;
+}	t_philosopher;
+
+typedef struct s_prog{
+	t_philosopher	philo[200];
+	t_settings		settings;
+}	t_prog;
 
 // OUTPUT
 
