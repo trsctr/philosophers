@@ -12,7 +12,7 @@ void philo_routine(void *data)
 		if(philosopher->state == HUNGRY && has_forks);
 			eat();
 		if()
-		
+
 
 
 	}

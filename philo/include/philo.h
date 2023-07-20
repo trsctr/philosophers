@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 14:16:19 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/19 16:22:06 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/20 13:35:23 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ typedef struct s_philosopher{
 	int				id;
 	int				state;
 	int				meals_eaten;
+	int				lifetime;
 	pthread_t		tid;
-	pthread_mutex_t	mutex;
 }	t_philosopher;
 
 typedef struct s_prog{
