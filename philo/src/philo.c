@@ -6,7 +6,7 @@
 /*   By: trsctr <trsctr@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 14:15:35 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/18 12:23:46 by trsctr           ###   ########.fr       */
+/*   Updated: 2023/07/21 16:44:39 by trsctr           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv)
 		bad_arguments();
 		return (0);
 	}
-	settings = init_settings();
+	settings = init_settings(); // maybe change this to init_prog??
 	if (!settings)
 	{
 		printf("fail\n");
@@ -33,4 +33,8 @@ int	main(int argc, char **argv)
 		printf("fail\n");
 		return (0);
 	}
+	// mutex creation function
+	// thread creation function
+	// monitoring / routine?
+	// joining threads and destroying mutexes
 }

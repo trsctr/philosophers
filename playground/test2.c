@@ -18,21 +18,24 @@ void *thread1_routine(void *data)
 {
 	pthread_t	tid;
 	t_locks		*locks;
-
+	int			i = 0;
 	tid = pthread_self();
 	locks = (t_locks *)data;
-	printf("%sThread [%ld]: wants lock l%s\n", YELLOW, tid, NC);
-	pthread_mutex_lock(&locks->lock1);
-	printf("%sThread [%ld]: owns lock 1%s\n", BYELLOW, tid, NC);
-	printf("%sThread [%ld]: wants lock 2%s\n", YELLOW, tid, NC);
-	pthread_mutex_lock(&locks->lock2);
-	printf("%sThread [%ld]: owns lock 2%s\n", BYELLOW, tid, NC);
-	locks->count += 1;
-	printf("%sThread [%ld]: unlocking lock 2%s\n", BYELLOW, tid, NC);
-	pthread_mutex_unlock(&locks->lock2);
-	printf("%sThread [%ld]: unlocking lock 1%s\n", BYELLOW, tid, NC);
-	pthread_mutex_unlock(&locks->lock1);
-	printf("%sThread [%ld]: finished%s\n", YELLOW, tid, NC);
+	while(i++ < 100)
+	{	printf("%sThread [%ld]: wants lock l%s\n", YELLOW, tid, NC);
+		pthread_mutex_lock(&locks->lock1);
+		printf("%sThread [%ld]: owns lock 1%s\n", BYELLOW, tid, NC);
+		printf("%sThread [%ld]: wants lock 2%s\n", YELLOW, tid, NC);
+		pthread_mutex_lock(&locks->lock2);
+		printf("%sThread [%ld]: owns lock 2%s\n", BYELLOW, tid, NC);
+		locks->count++;
+		printf("%sThread [%ld]: added one to count, value is now %u%s\n", RED, tid, locks->count, NC);
+		usleep(i * 100);
+		printf("%sThread [%ld]: unlocking lock 2%s\n", BYELLOW, tid, NC);
+		pthread_mutex_unlock(&locks->lock2);
+		printf("%sThread [%ld]: unlocking lock 1%s\n", BYELLOW, tid, NC);
+		pthread_mutex_unlock(&locks->lock1);
+	}
 	return(NULL);
 }
 
@@ -62,39 +65,26 @@ void *thread2_routine(void *data)
 
 int main(void)
 {
-	pthread_t	tid1;
-	pthread_t	tid2;
-	pthread_t	tid3;
-	pthread_t	tid4;
-	pthread_t	tid5;
+	pthread_t	th[600];
 	t_locks		locks;
-
+	int			i = 0;
 	locks.count = 0;
 	pthread_mutex_init(&locks.lock1, NULL);
 	pthread_mutex_init(&locks.lock2, NULL);
-	pthread_create(&tid1, NULL, thread1_routine, &locks);
-	printf("Main: Created first thread [%ld]\n", tid1);
-	pthread_create(&tid2, NULL, thread1_routine, &locks);
-	printf("Main: Created second thread [%ld]\n", tid2);
-	pthread_create(&tid3, NULL, thread1_routine, &locks);
-	printf("Main: Created third thread [%ld]\n", tid3);
-	pthread_create(&tid4, NULL, thread1_routine, &locks);
-	printf("Main: Created fourth thread [%ld]\n", tid4);
-	pthread_create(&tid5, NULL, thread1_routine, &locks);
-	printf("Main: Created fifth thread [%ld]\n", tid5);
-	
-	pthread_join(tid1, NULL);
-	printf("Main: Joined first thread[%ld]\n", tid1);
-	pthread_join(tid2, NULL);
-	printf("Main: Joined second thread[%ld]\n", tid2);
-	pthread_join(tid3, NULL);
-	printf("Main: Joined third thread[%ld]\n", tid3);
-	pthread_join(tid4, NULL);
-	printf("Main: Joined fourth thread[%ld]\n", tid4);
-	pthread_join(tid5, NULL);
-	printf("Main: Joined fifth thread[%ld]\n", tid5);
-	
-	if(locks.count == 2)
+	while (i < 600)
+	{
+		pthread_create(&th[i], NULL, thread1_routine, &locks);
+		printf("Main: Created #%d thread [%ld]\n", i, th[i]);
+		i++;
+	}
+	i = 0;
+	while (i < 600)
+	{
+		pthread_join(th[i], NULL);
+		printf("Main: Joined #%d thread[%ld]\n", i, th[i]);
+		i++;
+	}
+	if(locks.count == 60000)
 		printf("%sMain: OK. Total count is %d %s\n", GREEN, locks.count, NC);
 	else
 		printf("%sMain: FAIL. Total count is %u %s\n", RED, locks.count, NC);
