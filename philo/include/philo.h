@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 14:16:19 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/22 18:32:25 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:45:02 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,25 +69,20 @@ void	bad_arguments(void);
 
 // UTILS
 
-int		philo_atoi(const char *str);
-int		ft_isdigit(int c);
-int	save_settings(t_settings *settings, int argc, char **argv);
-void	init(t_prog **prog);
-void	*ft_calloc(size_t count, size_t size);
-void	*ft_bzero(void *b, size_t len);
-t_settings	*init_settings(void);
-unsigned long long get_time(void);
+unsigned long long	get_time(void);
+int					philo_atoi(const char *str);
+int					ft_isdigit(int c);
+int					save_settings(t_settings *settings, int argc, char **argv);
+void				init(t_prog **prog);
+void				*ft_calloc(size_t count, size_t size);
+void				*ft_bzero(void *b, size_t len);
+t_settings			*init_settings(void);
 
 // THREADS N SHIT
 
 void	create_threads(t_prog *prog);
 void	join_threads(t_prog *prog);
 void	*philo_routine(void *data);
-
-
-
-
-
 
 #endif
 /*
