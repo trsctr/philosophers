@@ -6,7 +6,7 @@
 #    By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 16:51:49 by oandelin          #+#    #+#              #
-#    Updated: 2023/07/19 15:40:16 by oandelin         ###   ########.fr        #
+#    Updated: 2023/07/22 16:05:03 by oandelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ DBFLAG 		=	-g
 THRDBFLAG	=	-fsanitize=thread
 MEMDBFLAG 	=	-fsanitize=address
 SRCDIR		=	src/
-SRCFILES	= 	philo.c utils.c error.c actions.c
+SRCFILES	= 	philo.c utils.c error.c actions.c init.c threads.c routine.c
 OBJ_DIR		= 	obj/
 OBJFILES	= 	$(SRCFILES:.c=.o)
 INC_DIR		=	include
@@ -40,11 +40,10 @@ debugleaks:
 	$(CC) $(CFLAGS) $(DBFLAG) $(MEMDBFLAG) $(SRCS) -o $(NAME)
 
 clean:
-	@echo "jooh"
+	@echo "i'mg going to put here something once i figure out how to work the object files like I want"
 
 fclean: clean
 	rm -rf $(NAME)
-	@echo "\033[0;91m* $(NAME) was deleted *\033[0m"
 
 re: fclean all
 

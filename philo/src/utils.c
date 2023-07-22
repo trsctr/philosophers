@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: trsctr <trsctr@student.42.fr>              +#+  +:+       +#+        */
+/*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 14:05:54 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/18 12:22:06 by trsctr           ###   ########.fr       */
+/*   Updated: 2023/07/22 18:07:34 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,36 +46,42 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-t_settings	*init_settings(void)
+void	*ft_calloc(size_t count, size_t size)
 {
-	t_settings	*settings;
+	void	*blk;
+	size_t	total;
 
-	settings = malloc(sizeof(t_settings));
-	if (!settings)
+	if (!count || !size)
+		return (ft_calloc(1, 1));
+	total = size * count;
+	if (total / count != size)
 		return (NULL);
-	else
-		return (settings);
+	blk = malloc(total);
+	if (!blk)
+		return (NULL);
+	ft_bzero(blk, total);
+	return (blk);
 }
 
-int	save_settings(t_settings *settings, int argc, char **argv)
+void	*ft_bzero(void *b, size_t len)
 {
-	settings->number_of_philosophers = philo_atoi(argv[1]);
-	if (settings->number_of_philosophers < 0)
-		return (-1);
-	settings->time_to_die = philo_atoi(argv[2]);
-	if (settings->time_to_die < 0)
-		return (-1);
-	settings->time_to_eat = philo_atoi(argv[3]);
-	if (settings->time_to_die < 0)
-		return (-1);	
-	settings->time_to_sleep = philo_atoi(argv[4]);
-	if (settings->time_to_die < 0)
-		return (-1);	
-	if (argc == 6)
-		settings->max_meals = philo_atoi(argv[5]);
-	else
-		settings->max_meals = 0;
-	if (settings->max_meals < 0)
-		return (-1);
-	return (0);
+	unsigned char	*s;
+	size_t			i;
+
+	i = 0;
+	s = (unsigned char *) b;
+	while (i < len)
+	{
+		s[i] = 0;
+		i++;
+	}
+	return (b);
+}
+
+unsigned long long get_time(void)
+{
+	struct timeval	current_time;
+
+	gettimeofday(&current_time, NULL);
+	return ((current_time.tv_sec / 1000) + (current_time.tv_usec * 1000));
 }

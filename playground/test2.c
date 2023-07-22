@@ -21,7 +21,7 @@ void *thread1_routine(void *data)
 	int			i = 0;
 	tid = pthread_self();
 	locks = (t_locks *)data;
-	while(i++ < 100)
+	while(i++ < 10)
 	{	printf("%sThread [%ld]: wants lock l%s\n", YELLOW, tid, NC);
 		pthread_mutex_lock(&locks->lock1);
 		printf("%sThread [%ld]: owns lock 1%s\n", BYELLOW, tid, NC);
@@ -30,7 +30,7 @@ void *thread1_routine(void *data)
 		printf("%sThread [%ld]: owns lock 2%s\n", BYELLOW, tid, NC);
 		locks->count++;
 		printf("%sThread [%ld]: added one to count, value is now %u%s\n", RED, tid, locks->count, NC);
-		usleep(i * 100);
+		usleep(i * 1000);
 		printf("%sThread [%ld]: unlocking lock 2%s\n", BYELLOW, tid, NC);
 		pthread_mutex_unlock(&locks->lock2);
 		printf("%sThread [%ld]: unlocking lock 1%s\n", BYELLOW, tid, NC);
@@ -84,7 +84,7 @@ int main(void)
 		printf("Main: Joined #%d thread[%ld]\n", i, th[i]);
 		i++;
 	}
-	if(locks.count == 60000)
+	if(locks.count == 6000)
 		printf("%sMain: OK. Total count is %d %s\n", GREEN, locks.count, NC);
 	else
 		printf("%sMain: FAIL. Total count is %u %s\n", RED, locks.count, NC);

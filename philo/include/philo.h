@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 14:16:19 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/20 13:35:23 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:32:25 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,43 @@ enum	e_state {
 	DEAD = 4
 };
 
+typedef struct s_prog	t_prog;
+
 typedef struct s_settings{
-	int	number_of_philosophers;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	max_meals;
+	int					number_of_philosophers;
+	unsigned long long	time_to_die;
+	unsigned long long	time_to_eat;
+	unsigned long long	time_to_sleep;
+	int					max_meals;
 }	t_settings;
 
-
 typedef struct s_philosopher{
-	int				id;
-	int				state;
-	int				meals_eaten;
-	int				lifetime;
-	pthread_t		tid;
+	int					id;
+	int					state;
+	int					meals_eaten;
+	int					max_meals;
+	unsigned long long	last_meal;
+	t_prog				*prog;
+	pthread_t			tid;
+	pthread_mutex_t		*forks;
 }	t_philosopher;
 
 typedef struct s_prog{
-	t_philosopher	philo[200];
-	t_settings		settings;
+	t_philosopher		philo[200];
+	t_settings			*settings;
+	int					finished;
+	unsigned long long	big_bang;
+	// mutex monitoring scriptia varten;
 }	t_prog;
+
 
 // OUTPUT
 
-void	philo_is_thinking(int timestamp, int philo_id);
-void	philo_has_fork(int timestamp, int philo_id);
-void	philo_is_eating(int timestamp, int philo_id);
-void	philo_is_sleeping(int timestamp, int philo_id);
-void	philo_died(int timestamp, int philo_id);
+void	philo_is_thinking(unsigned long long timestamp, int philo_id);
+void	philo_has_fork(unsigned long long timestamp, int philo_id);
+void	philo_is_eating(unsigned long long timestamp, int philo_id);
+void	philo_is_sleeping(unsigned long long timestamp, int philo_id);
+void	philo_died(unsigned long long timestamp, int philo_id);
 void	bad_arguments(void);
 
 // UTILS
@@ -64,7 +72,21 @@ void	bad_arguments(void);
 int		philo_atoi(const char *str);
 int		ft_isdigit(int c);
 int	save_settings(t_settings *settings, int argc, char **argv);
-t_settings *init_settings(void);
+void	init(t_prog **prog);
+void	*ft_calloc(size_t count, size_t size);
+void	*ft_bzero(void *b, size_t len);
+t_settings	*init_settings(void);
+unsigned long long get_time(void);
+
+// THREADS N SHIT
+
+void	create_threads(t_prog *prog);
+void	join_threads(t_prog *prog);
+void	*philo_routine(void *data);
+
+
+
+
 
 
 #endif
