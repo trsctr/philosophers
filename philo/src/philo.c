@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 14:15:35 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/22 17:20:53 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/23 15:46:06 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ int	main(int argc, char **argv)
 	prog->settings = init_settings();
 	if (save_settings(prog->settings, argc, argv) < 0)
 	{
-	 	free(prog);
-	 	printf("fail\n");
-	 	return (0);
+		free(prog);
+		printf("fail\n");
+		return (0);
 	}
-	// mutex creation function
-	create_threads(prog);
-	join_threads(prog);
+	set_table(prog);
+	while(42)
+		usleep(1);
+	clear_table(prog);
 	// thread creation function
 	// monitoring / routine?
 	// joining threads and destroying mutexes
