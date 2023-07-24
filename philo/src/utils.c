@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 14:05:54 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/22 18:07:34 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:59:05 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	philo_atoi(const char *str)
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
-		return (-1);
+		return (0);
 	}
 	while (ft_isdigit(str[i]))
 	{
@@ -33,7 +33,7 @@ int	philo_atoi(const char *str)
 		i++;
 	}
 	if (ft_isdigit(str[i]) == 0 && str[i] != '\0')
-		return (-1);
+		return (0);
 	else
 		return (res);
 }
@@ -78,7 +78,7 @@ void	*ft_bzero(void *b, size_t len)
 	return (b);
 }
 
-unsigned long long get_time(void)
+t_ulonglong	get_time(void)
 {
 	struct timeval	current_time;
 
