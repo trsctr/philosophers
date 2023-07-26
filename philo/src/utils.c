@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 14:05:54 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/24 17:59:05 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/26 21:25:02 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,42 +46,15 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*blk;
-	size_t	total;
-
-	if (!count || !size)
-		return (ft_calloc(1, 1));
-	total = size * count;
-	if (total / count != size)
-		return (NULL);
-	blk = malloc(total);
-	if (!blk)
-		return (NULL);
-	ft_bzero(blk, total);
-	return (blk);
-}
-
-void	*ft_bzero(void *b, size_t len)
-{
-	unsigned char	*s;
-	size_t			i;
-
-	i = 0;
-	s = (unsigned char *) b;
-	while (i < len)
-	{
-		s[i] = 0;
-		i++;
-	}
-	return (b);
-}
-
 t_ulonglong	get_time(void)
 {
-	struct timeval	current_time;
+	struct timeval	time;
 
-	gettimeofday(&current_time, NULL);
-	return ((current_time.tv_sec / 1000) + (current_time.tv_usec * 1000));
+	gettimeofday(&time, NULL);
+	return ((time.tv_sec * (t_ulonglong)1000) + (time.tv_usec / 1000));
+}
+
+t_ulonglong get_timestamp(t_prog *prog)
+{
+	return (get_time() - prog->start_time);
 }

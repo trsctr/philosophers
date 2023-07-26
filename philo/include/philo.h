@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 14:16:19 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/24 18:44:20 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/26 21:34:39 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # define BYELLOW	"\e[1;33m"
 # define RED	"\e[31m"
 # define GREEN	"\e[32m"
+# define BLUE	"\e[34m"
+# define PURPLE	"\e[35m"
+# define CYAN	"\e[1;36m"
 
 enum	e_state {
 	THINKING = 0,
@@ -35,65 +38,70 @@ enum	e_state {
 typedef unsigned long long	t_ulonglong;
 typedef struct s_prog		t_prog;
 
-typedef struct s_philosopher{
+typedef struct s_philo{
 	int					id;
-	int					state;
 	int					meals_eaten;
-	int					max_meals;
 	t_ulonglong			last_meal;
+	int					finished;
 	int					left_fork;
 	int					right_fork;
 	pthread_t			tid;
 	t_prog				*prog;
-	pthread_mutex_t		philomutex;
-	}	t_philosopher;
+	pthread_mutex_t		eat_mutex;
+}	t_philo;
 
 typedef struct s_prog{
-	t_philosopher		**philo;
+	t_philo				**philos;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		bouncer;
+	t_ulonglong			start_time;
 	int					number_of_philos;
 	t_ulonglong			time_to_die;
 	t_ulonglong			time_to_eat;
 	t_ulonglong			time_to_sleep;
 	int					max_meals;
-	int					finished;
+	pthread_mutex_t		death_mutex;
 	int					dead;
-	t_ulonglong			start_time;
-	// mutex monitoring scriptia varten;
+	pthread_mutex_t		finished_mutex;
+	int					finished;
 }	t_prog;
 
 
 // OUTPUT
 
 void	print_message(char *message, t_ulonglong timestamp, int id, char *color);
-void	philo_eats(t_philosopher *philo);
-void	philo_is_thinking(t_ulonglong timestamp, int philo_id);
-void	philo_has_fork(t_ulonglong timestamp, int philo_id);
-void	philo_is_eating(t_ulonglong timestamp, int philo_id);
-void	philo_is_sleeping(t_ulonglong timestamp, int philo_id);
-void	philo_died(t_ulonglong timestamp, int philo_id);
+void	philo_eats(t_philo *philo);
+void	philo_has_fork(t_philo *philo);
+void	philo_sleeps(t_philo *philo);
+void	philo_thinks(t_philo *philo);
 void	bad_arguments(void);
 
 // UTILS
 
-t_ulonglong			get_time(void);
-int					philo_atoi(const char *str);
-int					ft_isdigit(int c);
-int					save_settings(t_prog *prog, int argc, char **argv);
-void				*ft_calloc(size_t count, size_t size);
-void				*ft_bzero(void *b, size_t len);
+int			philo_atoi(const char *str);
+int			ft_isdigit(int c);
+t_ulonglong	get_time(void);
+t_ulonglong get_timestamp(t_prog *prog);
 
 
 // INIT
-t_prog	*init_prog(void);
-int	mutex_init(t_prog *prog);
+
+int		initializer(t_prog *prog, int argc, char **argv);
+int		save_settings(t_prog *prog, int argc, char **argv);
+int		init_arrays(t_prog *prog);
+int		init_mutexes(t_prog *prog);
+void	init_philo(t_prog *prog, int i);
 
 // THREADS N SHIT
 
 void	set_table(t_prog *prog);
-void	clear_table(t_prog *prog);
-void	*philo_routine(void *data);
+void	philo_routine(void *data);
+void	deathwatch(t_prog *prog);
+
+// EXIT & CLEANUP
+
+void	end_party(t_prog *prog);
+void	clean_table(t_prog *prog);
 
 #endif
 /*
