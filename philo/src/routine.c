@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:59:29 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/26 21:42:00 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/26 23:18:53 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	philo_routine(void *data)
 	while (1)
 	{	
 		pthread_mutex_lock(&philo->prog->forks[philo->left_fork]);
+		//printf("%s%llu %d has taken fork #%d%s\n", GREEN, get_timestamp(philo->prog), philo->id, philo->left_fork, NC);
 		philo_has_fork(philo);
 		pthread_mutex_lock(&philo->prog->forks[philo->right_fork]);
+		//printf("%s%llu %d has taken fork #%d%s\n", GREEN, get_timestamp(philo->prog), philo->id, philo->right_fork, NC);
 		philo_has_fork(philo);
 		pthread_mutex_lock(&philo->eat_mutex);
 		philo->last_meal = get_time();
@@ -46,8 +48,12 @@ void	philo_routine(void *data)
 			philo_eats(philo);
 			usleep(philo->prog->time_to_eat * 1000);
 			pthread_mutex_unlock(&philo->prog->forks[philo->right_fork]);
+			//		printf("%s%llu %d has given away fork #%d%s\n", GREEN, get_timestamp(philo->prog), philo->id, philo->right_fork, NC);
+
 			pthread_mutex_unlock(&philo->prog->forks[philo->left_fork]);
-			print_message("has finished eating", get_timestamp(philo->prog), philo->id, CYAN);
+//printf("%s%llu %d has given away fork #%d%s\n", GREEN, get_timestamp(philo->prog), philo->id, philo->left_fork, NC);
+
+			//print_message("has finished eating", get_timestamp(philo->prog), philo->id, CYAN);
 			break ;
 		}
 		pthread_mutex_unlock(&philo->eat_mutex);
@@ -55,7 +61,9 @@ void	philo_routine(void *data)
 		usleep(philo->prog->time_to_eat * 1000);
 		philo_sleeps(philo);
 		pthread_mutex_unlock(&philo->prog->forks[philo->right_fork]);
+		//printf("%s%llu %d has given away fork #%d%s\n", GREEN, get_timestamp(philo->prog), philo->id, philo->right_fork, NC);
 		pthread_mutex_unlock(&philo->prog->forks[philo->left_fork]);
+		//printf("%s%llu %d has given away fork #%d%s\n", GREEN, get_timestamp(philo->prog), philo->id, philo->left_fork, NC);
 		usleep(philo->prog->time_to_sleep * 1000);
 		philo_thinks(philo);
 		pthread_mutex_lock(&philo->prog->death_mutex);

@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:59:57 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/26 21:46:10 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/26 23:14:57 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,23 @@ void	deathwatch(t_prog *prog)
 {
 	int i;
 
-	usleep(prog->time_to_die * 1000);
+	usleep(prog->time_to_die * 500);
 	while (1)
 	{
 		i = 0;
 		while (i < prog->number_of_philos)
 		{
 			pthread_mutex_lock(&prog->philos[i]->eat_mutex);
+			pthread_mutex_lock(&prog->death_mutex);
 			if (get_time() - prog->philos[i]->last_meal > prog->time_to_die && prog->philos[i]->finished == 0)
 			{
-				pthread_mutex_unlock(&prog->philos[i]->eat_mutex);
-				print_message("died", get_timestamp(prog), prog->philos[i]->id, RED);
-				pthread_mutex_lock(&prog->death_mutex);
 				prog->dead++;
+				print_message("died", get_timestamp(prog), prog->philos[i]->id, RED);
+				pthread_mutex_unlock(&prog->philos[i]->eat_mutex);
 				pthread_mutex_unlock(&prog->death_mutex);
 				return ;
 			}
+			pthread_mutex_unlock(&prog->death_mutex);
 			pthread_mutex_unlock(&prog->philos[i]->eat_mutex);
 			pthread_mutex_lock(&prog->finished_mutex);
 			if (prog->finished >= prog->number_of_philos)
