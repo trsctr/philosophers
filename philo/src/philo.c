@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 14:15:35 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/27 20:48:37 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/27 21:46:29 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,3 @@ int	main(int argc, char **argv)
 	end_party(&prog);
 	return (0);
 }
-

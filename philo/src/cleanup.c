@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 20:34:57 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/27 20:45:13 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/27 21:46:37 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	clean_table(t_prog *prog)
 	pthread_mutex_destroy(&prog->finished_mutex);
 	pthread_mutex_destroy(&prog->death_mutex);
 	pthread_mutex_destroy(&prog->bouncer);
-
 }
 
 /**
