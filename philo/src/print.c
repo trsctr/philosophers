@@ -6,12 +6,17 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:25:02 by trsctr            #+#    #+#             */
-/*   Updated: 2023/07/27 18:46:35 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:09:15 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-
+/**
+ * @brief Prints error message
+ * 
+ * @param errorcode Tells the functions if the arguments are invalid, or the
+ * amount of arguments is invalid
+ */
 void	bad_arguments(int errorcode)
 {
 	if (errorcode == 1)
@@ -30,6 +35,13 @@ void	bad_arguments(int errorcode)
 	}
 }
 
+/**
+ * @brief Prints any of the philosophers actions/state changes
+ * 
+ * @param message the message, for example "is eating"
+ * @param timestamp timestamp of the event in milliseconds
+ * @param id number of the philosopher
+ */
 void	print_msg(char *message, t_ulonglong timestamp, int id)
 {
 	printf("%llu %d %s\n", timestamp, id, message);

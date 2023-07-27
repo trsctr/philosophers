@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 14:16:19 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/27 18:46:47 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:53:56 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,7 @@ int				ft_isdigit(int c);
 void			yousleep(t_prog *prog, t_ulonglong duration);
 t_ulonglong		get_time(void);
 t_ulonglong		get_timestamp(t_prog *prog);
+void			struct_cleaner(t_prog *prog);
+
 
 #endif

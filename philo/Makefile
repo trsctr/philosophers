@@ -6,7 +6,7 @@
 #    By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/01 16:51:49 by oandelin          #+#    #+#              #
-#    Updated: 2023/07/27 17:23:20 by oandelin         ###   ########.fr        #
+#    Updated: 2023/07/27 21:45:39 by oandelin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ DBFLAG 		=	-g
 THRDBFLAG	=	-fsanitize=thread
 MEMDBFLAG 	=	-fsanitize=address
 SRCDIR		=	src/
-SRCFILES	= 	philo.c utils.c print.c init.c threads.c routine.c monitoring.c actions.c
+SRCFILES	= 	philo.c utils.c print.c init.c party.c cleanup.c routine.c \
+				monitoring.c actions.c
 OBJ_DIR		= 	obj/
 OBJFILES	= 	$(SRCFILES:.c=.o)
 INC_DIR		=	include

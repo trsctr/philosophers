@@ -1,17 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads.c                                          :+:      :+:    :+:   */
+/*   party.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:59:57 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/27 18:19:26 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/27 20:48:58 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
+/**
+ * @brief This function initializes threads/philosophers, runs the routines, 
+ * saves the starting time and runs the monitoring function
+ * 
+ * the "bouncer" mutex is locked before thread creation to ensure none of the
+ * philosophers start eating until all the philosophers have arrived
+ * 
+ * @param prog main struct
+ */
 void	set_table(t_prog *prog)
 {
 	int	i;
@@ -20,8 +29,6 @@ void	set_table(t_prog *prog)
 	pthread_mutex_lock(&prog->bouncer);
 	while (i < prog->number_of_philos)
 	{
-		if (pthread_mutex_init(&prog->philos[i]->eat_mutex, NULL) != 0)
-			printf("Failed to init eat_mutex for philo %d\n", i);
 		init_philo(prog, i);
 		if (pthread_create(&prog->philos[i]->tid, NULL,
 				(void *) philo_routine, prog->philos[i]) != 0)
@@ -38,6 +45,12 @@ void	set_table(t_prog *prog)
 	monitor(prog);
 }
 
+/**
+ * @brief ends the party by joining the treads and then runs clean_table
+ * which destroys mutexes and frees allocated memory
+ * 
+ * @param prog main struct
+ */
 void	end_party(t_prog *prog)
 {
 	int	i;
@@ -49,31 +62,4 @@ void	end_party(t_prog *prog)
 		i--;
 	}
 	clean_table(prog);
-}
-
-void	clean_table(t_prog *prog)
-{
-	int	i;
-
-	i = 0;
-	if (prog->philos)
-	{
-		while (i < prog->number_of_philos)
-		{
-			pthread_mutex_destroy(&prog->philos[i]->eat_mutex);
-			if (prog->philos[i])
-				free(prog->philos[i]);
-			i++;
-		}
-		i = 0;
-		if (prog->philos)
-			free(prog->philos);
-	}
-	pthread_mutex_destroy(&prog->finished_mutex);
-	pthread_mutex_destroy(&prog->death_mutex);
-	pthread_mutex_destroy(&prog->bouncer);
-	while (i < prog->number_of_philos)
-		pthread_mutex_destroy(&prog->forks[i++]);
-	if (prog->forks)
-		free(prog->forks);
 }
