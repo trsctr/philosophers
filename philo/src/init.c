@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 14:11:39 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/26 21:36:25 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:29:49 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	initializer(t_prog *prog, int argc, char **argv)
 	prog->start_time = 0;
 	if (save_settings(prog, argc, argv) < 0)
 	{
-		printf("your input is bad and you should feel bad\n");
+		bad_arguments(1);
 		return (-1);
 	}
 	if (init_arrays(prog) < 0)
@@ -78,7 +78,6 @@ int	init_arrays(t_prog *prog)
 	return (0);
 }
 
-
 int	init_mutexes(t_prog *prog)
 {
 	int	counter;
@@ -107,5 +106,4 @@ void	init_philo(t_prog *prog, int i)
 	prog->philos[i]->meals_eaten = 0;
 	prog->philos[i]->last_meal = 0;
 	prog->philos[i]->prog = prog;
-
 }

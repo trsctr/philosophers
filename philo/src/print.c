@@ -5,45 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/23 13:36:50 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/26 21:25:41 by oandelin         ###   ########.fr       */
+/*   Created: 2023/07/18 12:25:02 by trsctr            #+#    #+#             */
+/*   Updated: 2023/07/27 18:46:35 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	philo_eats(t_philo *philo)
+void	bad_arguments(int errorcode)
 {
-	pthread_mutex_lock(&philo->prog->death_mutex);
-	if (philo->prog->dead == 0)
-		print_message("is eating", get_timestamp(philo->prog), philo->id, BYELLOW);
-	pthread_mutex_unlock(&philo->prog->death_mutex);
+	if (errorcode == 1)
+	{
+		printf("Invalid argument(s)!\n");
+		printf("Only numbers are accepted. Given values must be above zero.\n");
+		printf("Example: ./philo 2 210 100 100 2\n");
+	}
+	else
+	{
+		printf("Invalid amount of arguments!\n");
+		printf("Example: ./philo number_of_philosophers time_to_die ");
+		printf("time_to_eat time_to_sleep ");
+		printf("[optional: how_many_times_each_philosopher_must_eat]\n");
+		printf("Time values must be milliseconds\n");
+	}
 }
 
-void	philo_has_fork(t_philo *philo)
+void	print_msg(char *message, t_ulonglong timestamp, int id)
 {
-	pthread_mutex_lock(&philo->prog->death_mutex);
-	if (philo->prog->dead == 0)
-		print_message("has taken a fork", get_timestamp(philo->prog), philo->id, GREEN);
-	pthread_mutex_unlock(&philo->prog->death_mutex);
-}
-
-void	philo_sleeps(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->prog->death_mutex);
-	if(philo->prog->dead == 0)
-		print_message("is sleeping", get_timestamp(philo->prog), philo->id, PURPLE);
-	pthread_mutex_unlock(&philo->prog->death_mutex);
-}
-
-void	philo_thinks(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->prog->death_mutex);
-	if(philo->prog->dead == 0)
-		print_message("is thinking", get_timestamp(philo->prog), philo->id, BLUE);
-	pthread_mutex_unlock(&philo->prog->death_mutex);
-}
-void	print_message(char *message, t_ulonglong timestamp, int id, char *color)
-{
-	printf("%s%llu %d %s %s\n", color, timestamp, id, message, NC);
+	printf("%llu %d %s\n", timestamp, id, message);
 }

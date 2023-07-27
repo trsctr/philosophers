@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:59:57 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/26 23:14:57 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:19:26 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ void	set_table(t_prog *prog)
 	}
 	prog->start_time = get_time();
 	pthread_mutex_unlock(&prog->bouncer);
-	deathwatch(prog);
+	monitor(prog);
 }
-
 
 void	end_party(t_prog *prog)
 {
@@ -47,7 +46,7 @@ void	end_party(t_prog *prog)
 	while (i >= 0)
 	{
 		pthread_join(prog->philos[i]->tid, NULL);
-	 	i--;
+		i--;
 	}
 	clean_table(prog);
 }
@@ -66,56 +65,15 @@ void	clean_table(t_prog *prog)
 				free(prog->philos[i]);
 			i++;
 		}
+		i = 0;
 		if (prog->philos)
 			free(prog->philos);
-		i = 0;
 	}
 	pthread_mutex_destroy(&prog->finished_mutex);
 	pthread_mutex_destroy(&prog->death_mutex);
 	pthread_mutex_destroy(&prog->bouncer);
-	while (i <prog->number_of_philos)
-	{
-		pthread_mutex_destroy(&prog->forks[i]);
-		i++;
-	}
+	while (i < prog->number_of_philos)
+		pthread_mutex_destroy(&prog->forks[i++]);
 	if (prog->forks)
 		free(prog->forks);
 }
-
-void	deathwatch(t_prog *prog)
-{
-	int i;
-
-	usleep(prog->time_to_die * 500);
-	while (1)
-	{
-		i = 0;
-		while (i < prog->number_of_philos)
-		{
-			pthread_mutex_lock(&prog->philos[i]->eat_mutex);
-			pthread_mutex_lock(&prog->death_mutex);
-			if (get_time() - prog->philos[i]->last_meal > prog->time_to_die && prog->philos[i]->finished == 0)
-			{
-				prog->dead++;
-				print_message("died", get_timestamp(prog), prog->philos[i]->id, RED);
-				pthread_mutex_unlock(&prog->philos[i]->eat_mutex);
-				pthread_mutex_unlock(&prog->death_mutex);
-				return ;
-			}
-			pthread_mutex_unlock(&prog->death_mutex);
-			pthread_mutex_unlock(&prog->philos[i]->eat_mutex);
-			pthread_mutex_lock(&prog->finished_mutex);
-			if (prog->finished >= prog->number_of_philos)
-			{
-				pthread_mutex_unlock(&prog->finished_mutex);
-				return ;
-			}
-			pthread_mutex_unlock(&prog->finished_mutex);
-			i++;
-		}
-	}
-}
-// void monitor(void *data)
-// {
-	
-// }
