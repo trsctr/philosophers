@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:59:29 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/27 21:09:30 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/28 16:50:04 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	start_routine(t_philo *philo)
 	philo_thinks(philo);
 	if (philo->id % 2 == 0)
 	{
-		yousleep(philo->prog, philo->prog->time_to_eat * 0.1);
+		ft_usleep(philo->prog, philo->prog->time_to_eat * 0.1);
 	}
 	if (philo->left_fork == philo->right_fork)
 	{
@@ -85,7 +85,7 @@ int	start_routine(t_philo *philo)
  * locks fork mutexes if they are available, then locks
  * eat mutex to update last_meal and meals_eaten values
  * unlocks eat_mutex, prints status update with timestamp
- * and eats using custom yousleep function for the time_to_eat
+ * and eats using custom ft_usleep function for the time_to_eat
  * time specified in command line args
  * routine then releases the fork mutexes, prints "philo sleeps"
  * status update and sleeps for time time specified in 
@@ -112,11 +112,11 @@ int	life_of_philo(t_philo *philo)
 		return (1);
 	pthread_mutex_unlock(&philo->eat_mutex);
 	philo_eats(philo);
-	yousleep(philo->prog, philo->prog->time_to_eat);
+	ft_usleep(philo->prog, philo->prog->time_to_eat);
 	pthread_mutex_unlock(&philo->prog->forks[philo->right_fork]);
 	pthread_mutex_unlock(&philo->prog->forks[philo->left_fork]);
 	philo_sleeps(philo);
-	yousleep(philo->prog, philo->prog->time_to_sleep);
+	ft_usleep(philo->prog, philo->prog->time_to_sleep);
 	philo_thinks(philo);
 	return (0);
 }
@@ -139,7 +139,7 @@ int	finish_eating(t_philo *philo)
 		philo->finished++;
 		pthread_mutex_unlock(&philo->eat_mutex);
 		philo_eats(philo);
-		yousleep(philo->prog, philo->prog->time_to_eat);
+		ft_usleep(philo->prog, philo->prog->time_to_eat);
 		pthread_mutex_unlock(&philo->prog->forks[philo->right_fork]);
 		pthread_mutex_unlock(&philo->prog->forks[philo->left_fork]);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 14:05:54 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/27 21:31:11 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/28 16:49:02 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 /**
  * @brief custom atoi function to convert command line arguments to integers
  * accepts only numbers and returns 0 to the save_settings function if 
- * the given string contains anything else than numbers. 
+ * the given string contains anything else than numbers, or if the number
+ * exceeds INT_MAX
  * 
  * @param str command line argument
  * @return int command line argument converted to an integer, or 0 if the
@@ -41,6 +42,8 @@ int	philo_atoi(const char *str)
 		res = res * 10 + dig;
 		i++;
 	}
+	if (res > INT_MAX)
+		return (0);
 	if (ft_isdigit(str[i]) == 0 && str[i] != '\0')
 		return (0);
 	else
@@ -101,7 +104,7 @@ t_ulonglong	get_timestamp(t_prog *prog)
  * @param prog main struct which contains mutexes main data
  * @param duration duration of the sleep in milliseconds
  */
-void	yousleep(t_prog *prog, t_ulonglong duration)
+void	ft_usleep(t_prog *prog, t_ulonglong duration)
 {
 	t_ulonglong	start;
 
@@ -115,6 +118,13 @@ void	yousleep(t_prog *prog, t_ulonglong duration)
 			break ;
 		}
 		pthread_mutex_unlock(&prog->death_mutex);
+		pthread_mutex_lock(&prog->finished_mutex);
+		if (prog->finished >= prog->number_of_philos)
+		{
+			pthread_mutex_unlock(&prog->finished_mutex);
+			break ;
+		}
+		pthread_mutex_unlock(&prog->finished_mutex);
 		usleep(500);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 14:16:19 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/27 21:46:21 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/28 16:50:00 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
-# include <string.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <limits.h>
 
 typedef unsigned long long	t_ulonglong;
 typedef struct s_prog		t_prog;
@@ -87,7 +87,7 @@ void			clean_table(t_prog *prog);
 
 int				philo_atoi(const char *str);
 int				ft_isdigit(int c);
-void			yousleep(t_prog *prog, t_ulonglong duration);
+void			ft_usleep(t_prog *prog, t_ulonglong duration);
 t_ulonglong		get_time(void);
 t_ulonglong		get_timestamp(t_prog *prog);
 void			struct_cleaner(t_prog *prog);

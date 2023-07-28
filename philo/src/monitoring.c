@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:14:52 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/27 21:21:32 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/28 16:50:01 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	monitor(t_prog *prog)
 {
 	int	i;
 
-	yousleep(prog, prog->time_to_die);
+	ft_usleep(prog, prog->time_to_die);
 	while (1)
 	{
 		i = 0;

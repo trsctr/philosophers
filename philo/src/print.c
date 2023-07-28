@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 12:25:02 by trsctr            #+#    #+#             */
-/*   Updated: 2023/07/27 19:09:15 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/28 16:31:33 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	bad_arguments(int errorcode)
 	if (errorcode == 1)
 	{
 		printf("Invalid argument(s)!\n");
-		printf("Only numbers are accepted. Given values must be above zero.\n");
+		printf("Only values between 1 and %d are accepted.\n", INT_MAX);
 		printf("Example: ./philo 2 210 100 100 2\n");
 	}
 	else
