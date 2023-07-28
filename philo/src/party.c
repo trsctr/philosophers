@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:59:57 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/27 20:48:58 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/07/28 18:49:32 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	end_party(t_prog *prog)
 	i = prog->number_of_philos - 1;
 	while (i >= 0)
 	{
-		pthread_join(prog->philos[i]->tid, NULL);
+		if (pthread_join(prog->philos[i]->tid, NULL) != 0)
+			printf("Failed to join thread for philo %d!\n", i);
 		i--;
 	}
 	clean_table(prog);
