@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 14:11:39 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/27 21:08:53 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/08/01 16:44:01 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	init_philo(t_prog *prog, int i)
 {
 	prog->philos[i]->id = i + 1;
 	prog->philos[i]->left_fork = i;
-	prog->philos[i]->right_fork = i + 1 % prog->number_of_philos;
+	prog->philos[i]->right_fork = (i + 1) % prog->number_of_philos;
 	prog->philos[i]->meals_eaten = 0;
 	prog->philos[i]->last_meal = 0;
 	prog->philos[i]->prog = prog;

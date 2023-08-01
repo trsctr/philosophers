@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 20:14:52 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/28 16:50:01 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/08/01 16:37:27 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	monitor(t_prog *prog)
 			pthread_mutex_unlock(&prog->finished_mutex);
 			i++;
 		}
-		usleep(1000);
 	}
 }
 
@@ -64,7 +63,7 @@ int	deathwatch(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->eat_mutex);
 	pthread_mutex_lock(&philo->prog->death_mutex);
-	if ((get_time() - philo->last_meal > philo->prog->time_to_die
+	if ((get_time() - philo->last_meal >= philo->prog->time_to_die
 			&& philo->finished == 0) || philo->prog->number_of_philos == 1)
 	{
 		philo->prog->dead++;

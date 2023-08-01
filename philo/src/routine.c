@@ -6,7 +6,7 @@
 /*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:59:29 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/28 16:50:04 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/08/01 16:35:43 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	start_routine(t_philo *philo)
 	pthread_mutex_unlock(&philo->eat_mutex);
 	pthread_mutex_unlock(&philo->prog->bouncer);
 	philo_thinks(philo);
+	ft_usleep(philo->prog, philo->prog->time_to_eat * 0.1);
 	if (philo->id % 2 == 0)
 	{
 		ft_usleep(philo->prog, philo->prog->time_to_eat * 0.1);
