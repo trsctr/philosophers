@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oandelin <oandelin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 14:59:29 by oandelin          #+#    #+#             */
-/*   Updated: 2023/08/01 16:35:43 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:27:37 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	philo_routine(void *data)
 	if (start_routine(philo))
 		return ;
 	while (1)
-	{	
+	{
 		if (life_of_philo(philo))
 			break ;
 		pthread_mutex_lock(&philo->prog->death_mutex);

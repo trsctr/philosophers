@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oandelin <oandelin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 14:15:35 by oandelin          #+#    #+#             */
-/*   Updated: 2023/07/27 21:46:29 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:27:32 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	if (initializer(&prog, argc, argv) < 0)
-	{	
+	{
 		if (prog.philos)
 			struct_cleaner(&prog);
 		return (0);

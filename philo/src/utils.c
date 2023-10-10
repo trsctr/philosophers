@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oandelin <oandelin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oandelin <oandelin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 14:05:54 by oandelin          #+#    #+#             */
-/*   Updated: 2023/08/01 16:16:03 by oandelin         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:27:13 by oandelin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ int	philo_atoi(const char *str)
 	{
 		dig = str[i] - 48;
 		res = res * 10 + dig;
+		if (res > INT_MAX)
+			return (0);
 		i++;
 	}
-	if (res > INT_MAX)
-		return (0);
 	if (ft_isdigit(str[i]) == 0 && str[i] != '\0')
 		return (0);
 	else
